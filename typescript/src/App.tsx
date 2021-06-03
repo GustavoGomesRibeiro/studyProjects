@@ -1,8 +1,14 @@
-//import React from "react";
-import Home from "./pages/Home/index";
+import GlobalStyles from "./styles/global";
+import './assets/fonts/fonts.css';
+import Route from './routes';
 
 function App() {
-  return <Home />;
+  return (
+    <>
+      <GlobalStyles/>
+      <Route />
+    </>
+  )
 }
 
 export default App;
