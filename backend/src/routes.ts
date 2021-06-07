@@ -4,6 +4,6 @@ const ControllerUser = require('./controller/ControllerUser');
 
 const routes = express.Router();
 
-routes.get('/', ControllerUser.index);
+routes.get('/login', ControllerUser.index);
 
 module.exports = routes;

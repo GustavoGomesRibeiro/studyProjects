@@ -1,8 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, SyntheticEvent  } from "react";
 import { Container, Content, Img, Sign, Text } from "./styles";
 import login_svg from "../../assets/img/login.svg";
-
 import { useHistory } from "react-router-dom";
+
+import api from '../../services/index';
 
 interface Auth {
   username: string;
@@ -22,20 +23,22 @@ export default function Login() {
     inputRef.current?.focus();
   };
 
-   async function handleSubmit() {
+   async function handleSubmit(event: SyntheticEvent) {
     // event: React.FormEvent<HTMLInputElement>
-    // event.preventDefault();
+    event.preventDefault();
      try {
       if (!sign.username || !sign.password) {
         alert("Ops!! Something it's wrong here!");
       }
 
-      // const response = await fetch('/', {
-      //   sign: sign.username,
-      //   sign: sign.password
-      // })
+      const response = await api.get('/login', {
+        // sign: sign.username,
+        // sign: sign.password
+      })
 
-      // localStorage.setItem('Id', response.data.id);
+      console.log('response', response);
+
+      localStorage.setItem('Id', response.data.id);
       localStorage.setItem('Username', sign.username);
       localStorage.setItem('Password', sign.password);
   
@@ -44,7 +47,7 @@ export default function Login() {
     } catch (error) {
       console.log(error, ">> error <<")
       error("Usuario ou senha estão incorretos");
-      alert(error("Usuario ou senha estão incorretos"));
+      // alert(error("Usuario ou senha estão incorretos"));
     }
   }
 
