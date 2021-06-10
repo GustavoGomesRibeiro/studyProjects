@@ -1,6 +1,9 @@
 import React, { useState, useRef, SyntheticEvent  } from "react";
 import { Container, Content, Img, Sign, Text } from "./styles";
 import login_svg from "../../assets/img/login.svg";
+
+import { toast, ToastContainer } from 'react-toastify';
+
 import { useHistory } from "react-router-dom";
 
 import api from '../../services/index';
@@ -24,30 +27,24 @@ export default function Login() {
   };
 
    async function handleSubmit(event: SyntheticEvent) {
-    // event: React.FormEvent<HTMLInputElement>
     event.preventDefault();
      try {
       if (!sign.username || !sign.password) {
-        alert("Ops!! Something it's wrong here!");
+        return toast.error ('Ops! Usuário e senha não podem ficar vazio!');
       }
 
-      const response = await api.get('/login', {
-        // sign: sign.username,
-        // sign: sign.password
-      })
+      const response = await api.get<Auth>('/login')
 
       console.log('response', response);
 
-      localStorage.setItem('Id', response.data.id);
+      // localStorage.setItem('Id', response.data.id);
       localStorage.setItem('Username', sign.username);
       localStorage.setItem('Password', sign.password);
   
       history.push('/Home');
       
     } catch (error) {
-      console.log(error, ">> error <<")
-      error("Usuario ou senha estão incorretos");
-      // alert(error("Usuario ou senha estão incorretos"));
+      toast.error ('Usuário ou senha estão incorretos!')
     }
   }
 
@@ -78,6 +75,7 @@ export default function Login() {
               onChange={ e => setSign({...sign, password: e.target.value})}
 
             />
+              <ToastContainer />
               <button type="submit">
                 Entrar
               </button>
