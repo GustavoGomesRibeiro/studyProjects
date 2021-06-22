@@ -1,12 +1,14 @@
 const express = require('express');
+import AuthMiddlere from './middlewares/AuthMiddleware'; 
 
-import ControllerUser from './controller/ControllerUser';
+import UserCreateController from './controller/UserCreateController';
 import AuthController from './controller/AuthController';
 
 const routes = express.Router();
 
-// routes.get('/login', ControllerUser.index);
-routes.post('/signup', ControllerUser.store);
-routes.post('/signin', AuthController.index);
+routes.post('/signup', UserCreateController.store);
+
+routes.get('/signin', AuthMiddlere, AuthController.index);
+routes.post('/signin', AuthController.store);
 
 module.exports = routes;

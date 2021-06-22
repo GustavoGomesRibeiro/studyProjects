@@ -7,7 +7,17 @@ import jwt from 'jsonwebtoken';
 import User from '../app/models/User';
 
 class AuthController {
-    async index (req: Request, res: Response) {
+    async index(req: Request, res: Response){
+        const repository = getRepository(User);
+
+        const getUser = await repository.find({select: ['id', 'email']});
+        
+        return res.json({
+            getUser
+        })
+    }
+
+    async store (req: Request, res: Response) {
         const repository = getRepository(User);
         const { email, password } = req.body
 
