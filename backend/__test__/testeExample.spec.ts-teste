@@ -1,0 +1,28 @@
+// testar e exibir resultado esperado
+
+//mostrar o resultado que deu
+
+//comparacao se forem iguais succes caso nao err.
+
+
+//describe('') agrupar o codigo recebe funcao como 2 parametro
+//it criacao dos testes, passar uma descricao do que espera do teste, 2 parametro como funcao com
+//expect resultado esperado na logica toBe()
+
+describe('Criar usuario', () => {
+    
+    it('a soma de 2 + 2 deve ser igual a 4 ', () => {
+        const soma = 2 + 2;
+        const resultado = 4
+
+        expect(soma).toBe(resultado);
+    });
+
+    it('a soma de 2 +2 não deve ser 5', () => {
+
+        const soma = 2 + 2;
+        const resultado = 5;
+
+        expect(soma).not.toBe(resultado);
+    })
+})

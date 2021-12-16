@@ -7,8 +7,8 @@ import AuthController from './controller/AuthController';
 const routes = express.Router();
 
 routes.post('/signup', UserCreateController.store);
+routes.get('/signup', AuthMiddlere, UserCreateController.index);
 
-routes.get('/signin', AuthMiddlere, AuthController.index);
 routes.post('/signin', AuthController.store);
 
 module.exports = routes;
