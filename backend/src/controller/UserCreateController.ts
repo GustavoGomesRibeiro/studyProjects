@@ -21,7 +21,7 @@ class ControllerUser {
         const verifyIfExist = await repository.findOne({ where: { email } });
 
         if(verifyIfExist){
-            return res.sendStatus(409);
+            return res.status(409).json({message: 'User already exists'});
         }
 
         const createUser = repository.create({ email, password });
