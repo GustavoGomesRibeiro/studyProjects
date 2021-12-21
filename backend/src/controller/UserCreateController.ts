@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import User from '../app/models/User';
 
-class ControllerUser {
+class UserCreateController {
     async index(req: Request, res: Response){
         const repository = getRepository(User);
 
@@ -32,4 +32,4 @@ class ControllerUser {
     } 
 };
 
-export default new ControllerUser();
+export {UserCreateController}

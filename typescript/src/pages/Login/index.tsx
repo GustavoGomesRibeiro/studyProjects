@@ -9,7 +9,7 @@ import { useHistory } from "react-router-dom";
 import api from '../../services/index';
 
 interface Auth {
-  username: string;
+  email: string;
   password: string;
 }
 
@@ -18,7 +18,7 @@ export default function Login() {
   const history = useHistory();
 
   const [sign, setSign] = useState<Auth>({
-    username: "",
+    email: "",
     password: ""
   });
 
@@ -28,23 +28,27 @@ export default function Login() {
 
    async function handleSubmit(event: SyntheticEvent) {
     event.preventDefault();
-     try {
-      if (!sign.username || !sign.password) {
+      if (!sign.email || !sign.password){
         return toast.error ('Ops! Usuário e senha não podem ficar vazio!');
-      }
+      } else {
+        try {
 
-      const response = await api.get<Auth>('/login')
+          const response = await api.post('/signin', 
+            {
+              email: sign.email, 
+              password: sign.password
+            });
 
-      console.log('response', response);
 
-      // localStorage.setItem('Id', response.data.id);
-      localStorage.setItem('Username', sign.username);
-      localStorage.setItem('Password', sign.password);
-  
-      history.push('/Home');
+          localStorage.setItem('Id', response.data.id);
+          localStorage.setItem('Username', sign.email);
+          localStorage.setItem('Password', sign.password);
       
-    } catch (error) {
-      toast.error ('Usuário ou senha estão incorretos!')
+          history.push('/Home');
+          
+        } catch (error) {
+          toast.error ('Usuário ou senha estão incorretos!')
+        }
     }
   }
 
@@ -62,10 +66,10 @@ export default function Login() {
           <form ref={onClickButton} onSubmit={handleSubmit}>
             <input
               type="text"
-              name="username"
-              placeholder="Username"
-              value={sign?.username}
-              onChange={ e => setSign({...sign, username: e.target.value})}
+              name="Email"
+              placeholder="Email"
+              value={sign?.email}
+              onChange={ e => setSign({...sign, email: e.target.value})}
             />
             <input
               type="password"
